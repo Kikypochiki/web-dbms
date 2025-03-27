@@ -173,8 +173,12 @@ export default function Home() {
             <ScrollArea className="w-170 h-105 bg-gray-800 rounded-xl border-1 border-gray-400">
             <div className="grid grid-cols-3 gap-1 p-2">
               {profiles.map((profile) => (
-              <div key={profile.id} onClick={() => handleProfileClick(profile)}>
-                <Profile profile={profile} />
+              <div 
+          key={profile.id} 
+          onClick={() => handleProfileClick(profile)} 
+          className="transition-transform duration-300 ease-in-out hover:scale-105 active:scale-90"
+              >
+          <Profile profile={profile} />
               </div>
               ))}
             </div>
