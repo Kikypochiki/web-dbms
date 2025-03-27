@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
 import "./globals.css";
 import Profile from '../components/profile';  
 import { supabase } from "../lib/supabase";
-import { GetStaticProps } from 'next';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 
@@ -31,7 +29,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      let { data: profiles, error } = await supabase
+      const { data: profiles, error } = await supabase
         .from('users')
         .select('*');
       if (profiles) {
@@ -72,7 +70,7 @@ export default function Home() {
     fetchData();
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
       [e.target.name]: e.target.value
@@ -105,7 +103,7 @@ export default function Home() {
   const handleEdit = async (id: number) => 
   {
     try{          
-          const { data: updatedData, error } = await supabase
+          await supabase
           .from('users')
           .update({ name: data.name,
                     school_id: data.school_id,
@@ -125,7 +123,7 @@ export default function Home() {
   const handleSearch = async (search: string) => {
     try {
       const searchLower = search.toLowerCase();
-      let { data: profiles, error } = await supabase
+      const { data: profiles, error } = await supabase
         .from('users')
         .select('*')
         .ilike('name', `%${searchLower}%`);
